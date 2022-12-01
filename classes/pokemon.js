@@ -1,10 +1,11 @@
 class Pokemon {
-  constructor(name, hitPoints, attackDamage, move = "tackle", type = "normal") {
+  constructor(name, hitPoints, attackDamage, move = "Tackle", type = "Normal") {
     this.name = name;
     this.type = type;
     this.hitPoints = hitPoints;
     this.attackDamage = attackDamage;
     this.move = move;
+    this.sound = `${name.slice(0, 3)}... ${name}!`;
   }
   isEffectiveAgainst(pokemonObject) {
     if (this.type === "Fire" && pokemonObject.type === "Grass") {
@@ -44,4 +45,4 @@ class Pokemon {
     return false;
   }
 }
-module.exports = Pokemon
+module.exports = { Pokemon };

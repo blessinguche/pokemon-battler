@@ -1,33 +1,33 @@
 const { Pokemon } = require(`${__dirname}/pokemon.js`);
 
 class Fire extends Pokemon {
-  constructor(name, hitPoints, attackDamage, move = "tackle") {
+  constructor(name, hitPoints, attackDamage, move = "Tackle") {
     super(name, hitPoints, attackDamage, move, "Fire");
   }
 }
 class Water extends Pokemon {
-  constructor(name, hitPoints, attackDamage, move = "tackle") {
+  constructor(name, hitPoints, attackDamage, move = "Tackle") {
     super(name, hitPoints, attackDamage, move, "Water");
   }
 }
 class Grass extends Pokemon {
-  constructor(name, hitPoints, attackDamage, move = "tackle") {
+  constructor(name, hitPoints, attackDamage, move = "Tackle") {
     super(name, hitPoints, attackDamage, move, "Grass");
   }
 }
 class Flareon extends Fire {
   constructor() {
-    super("Flareon", 65, 20, "Fire blast");
+    super("Flareon", 65, 20, "Fire Blast");
   }
 }
 class Vaporeon extends Water {
   constructor() {
-    super("Vaporeon", 70, 19, "Hydro pump");
+    super("Vaporeon", 70, 19, "Hydro Pump");
   }
 }
 class Leafeon extends Grass {
   constructor() {
-    super("Leafeon", 65, 17, "Giga drain");
+    super("Leafeon", 65, 17, "Giga Drain");
   }
 }
 class Eevee extends Pokemon {
@@ -47,7 +47,7 @@ class Squirtle extends Water {
 }
 class Bulbasaur extends Grass {
   constructor() {
-    super("Bulbasaur", 45, 16, "Razor leaf");
+    super("Bulbasaur", 45, 16, "Razor Leaf");
   }
 }
 class Rattata extends Pokemon {
@@ -57,12 +57,12 @@ class Rattata extends Pokemon {
 }
 
 module.exports = {
-    Eevee,
-    Flareon,
-    Vaporeon,
-    Leafeon,
-    Charmander,
-    Squirtle,
-    Bulbasaur,
-    Rattata,
-  };
+  Eevee,
+  Flareon,
+  Vaporeon,
+  Leafeon,
+  Charmander,
+  Squirtle,
+  Bulbasaur,
+  Rattata,
+};
