@@ -36,9 +36,14 @@ class Trainer {
   getPokemon(pokemonName) {
     for (let i = 0; i < this.belt.length; i++) {
       if (this.belt[i].storage.name === pokemonName) {
+        if (this.belt[i].storage.hitPoints <= 0) {
+          this.belt.pop();
+          this.belt.push(new Pokeball());
+        }
         return this.belt[i].throw();
       }
     }
+
     return "Error: Pokemon not found";
   }
 }

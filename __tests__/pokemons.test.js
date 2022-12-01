@@ -1,4 +1,3 @@
-const { Pokemon } = require(`${__dirname}/../classes/pokemon.js`);
 const {
   Eevee,
   Flareon,

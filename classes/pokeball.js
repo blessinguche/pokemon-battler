@@ -19,9 +19,10 @@ class Pokeball {
       if (this.quantity <= 0) {
         console.log("empty...");
         return "empty...";
+      } else {
+        console.log(`GO ${this.storage.name}!!`);
+        return this.storage; // { 1: 'Charmanda' }
       }
-      console.log(`GO ${this.storage.name}!!`);
-      return this.storage; // { 1: 'Charmanda' }
     }
     if (this.quantity === 0) {
       this.quantity += 1;
@@ -33,6 +34,14 @@ class Pokeball {
         this.storage = new Bulbasaur();
       } else if (pokemon === "Rattata") {
         this.storage = new Rattata();
+      } else if (pokemon === "Eevee") {
+        this.storage = new Eevee();
+      } else if (pokemon === "Flareon") {
+        this.storage = new Flareon();
+      } else if (pokemon === "Vaporeon") {
+        this.storage = new Vaporeon();
+      } else if (pokemon === "Leafeon") {
+        this.storage = new Leafeon();
       } else this.storage = new pokemon();
       console.log(`You caught ${this.storage.name}`);
     } else {
