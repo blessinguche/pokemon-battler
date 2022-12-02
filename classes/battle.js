@@ -47,20 +47,26 @@ class Battle {
       console.log(this.round, this.matches);
       return "GAME OVER";
     }
+
     if (this.newMatch === true) {
-      this.matches += 1;
       const random = Math.floor(Math.random() * pokemons.length);
       const npcPokemonX = new pokemons[random]();
       this.npcPokemon = npcPokemonX;
+
+      if (this.newMatch) {
+        if (this.round === 1) {
+          console.log(
+            `\nYou start your journey with just a ${this.trainerPokemon.name} in your belt\nYou wander into the Forbidden Forest...\nA Wild ${this.npcPokemon.name} has appeared!\nFight it to capture it!`
+          );
+        } else {
+          console.log(
+            `\nYou've defeated the Wild Pokemon.\nSo you contiue your journey with ${this.trainerPokemon.name} with ${this.trainerPokemon.hitPoints} hitpoints in your first slot of your belt\nYou wander further into the Forbidden Forest...\nA Wild ${this.npcPokemon.name} has appeared!\nFight it to capture it!`
+          );
+        }
+      }
+
       this.newMatch = false;
-    }
-
-    console.log(this.npcPokemon.name);
-
-    if (this.newMatch === true) {
-      console.log(
-        `You start your journey with just a ${this.trainerPokemon.name} in your belt\nYou wander into the Forbidden Forest...\nA Wild ${this.npcPokemon.name} has appeared!\nFight it to capture it!`
-      );
+      this.matches += 1;
     }
 
     if (this.trainerPokemon.hasFainted() || this.npcPokemon.hasFainted()) {
@@ -84,7 +90,7 @@ class Battle {
       );
 
       console.log(
-        `${this.trainerPokemon.sound}\n${this.trainerPokemon.name} used ${this.trainerPokemon.move} on ${this.npcPokemon.name}\n${this.npcPokemon.name} took ${damage1} damage\n${this.npcPokemon.name} hitpoints = ${this.npcPokemon.hitPoints}`
+        `\n${this.trainerPokemon.sound}\n${this.trainerPokemon.name} used ${this.trainerPokemon.move} on ${this.npcPokemon.name}\n${this.npcPokemon.name} took ${damage1} damage\n${this.npcPokemon.name} hitpoints = ${this.npcPokemon.hitPoints}`
       );
     }
     if (this.trainerPokemon.isEffectiveAgainst(this.npcPokemon)) {
@@ -99,7 +105,7 @@ class Battle {
         this.npcPokemon.useMove() * multiply2
       );
       console.log(
-        `${this.npcPokemon.sound}\n${this.npcPokemon.name} used ${this.npcPokemon.move} on ${this.trainerPokemon.name}\n${this.trainerPokemon.name} took ${damage2} damage\n${this.trainerPokemon.name} hitpoints = ${this.trainerPokemon.hitPoints}`
+        `\n${this.npcPokemon.sound}\n${this.npcPokemon.name} used ${this.npcPokemon.move} on ${this.trainerPokemon.name}\n${this.trainerPokemon.name} took ${damage2} damage\n${this.trainerPokemon.name} hitpoints = ${this.trainerPokemon.hitPoints}`
       );
     }
 
@@ -111,11 +117,10 @@ class Battle {
 
     if (this.npcPokemon.hasFainted()) {
       this.newMatch = true;
-      
-      
+
       this.pokemon = this.npcPokemon.name;
       console.log(
-        `${this.trainer.name}, you have won the battle!\nYou now capture the pokemon...`
+        `\n${this.trainer.name}, you have won the battle!\nYou now capture the pokemon...`
       );
 
       this.trainer.catch(this.npcPokemon.name);
@@ -137,5 +142,7 @@ class Battle {
     console.log(this.trainer.belt);
   }
 }
+const match = new Battle("Blessing", "Flareon");
+console.log(match.fight());
 
 module.exports = Battle;
