@@ -54,7 +54,7 @@ describe("match 1", () => {
 
     expect(name).toBe(undefined);
   });
-  test.only("should return the rounds amount when no pokeballs in belt", () => {
+  test("should return the rounds amount when no pokeballs in belt", () => {
     const match = new Battle("Blessing", "Rattata");
     match.fight();
     match.fight();
