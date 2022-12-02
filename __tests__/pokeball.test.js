@@ -9,7 +9,7 @@ describe("Pokeball", () => {
   test('should return "empty" when passed no value to throw and the storage is empty', () => {
     const input = new Pokeball();
 
-    expect(input.throw()).toBe("empty...");
+    expect(input.throw()).toBe("Your pokeball is empty...");
   });
   test("should should return pokemon name when passed pokemon in throw, if storage is empty", () => {
     const input = new Pokeball();

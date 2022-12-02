@@ -62,14 +62,11 @@ describe("Methods", () => {
       expect(Flareon.useMove()).toBe(20);
     });
     test("should console log a movetext", () => {
-      // "Flareon used Fire blast!"
-      const consoleSpy = jest.spyOn(console, "log");
-
       const Flareon = new Pokemon("Flareon", 65, 20, "Fire blast", "Fire");
-      Flareon.useMove();
-
-      expect(consoleSpy).toHaveBeenCalledTimes(1);
-      expect(consoleSpy).toHaveBeenCalledWith("Flareon used Fire blast!");
+      
+      const damage = Flareon.useMove()
+      
+      expect(damage).toBe(20);
     });
   });
   describe("hasFainted", () => {

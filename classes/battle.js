@@ -44,10 +44,11 @@ class Battle {
     let multiply = 1;
     let multiply2 = 1;
     if (!this.trainerPokemon.name) {
-      console.log(this.round);
+      console.log(this.round, this.matches);
       return "GAME OVER";
     }
     if (this.newMatch === true) {
+      this.matches += 1;
       const random = Math.floor(Math.random() * pokemons.length);
       const npcPokemonX = new pokemons[random]();
       this.npcPokemon = npcPokemonX;
@@ -110,7 +111,7 @@ class Battle {
 
     if (this.npcPokemon.hasFainted()) {
       this.newMatch = true;
-      this.matches += 1;
+      
       
       this.pokemon = this.npcPokemon.name;
       console.log(

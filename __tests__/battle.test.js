@@ -21,7 +21,7 @@ describe("match 1", () => {
 
     expect(hitPoints).toBeLessThan(65);
   });
-  test("should return 'Charmander used ember!' only when is not the player's turn", () => {
+  test("should return 'You caught Pokemon'only when it is a new match - at the start and when defeating computer's Pokemoon", () => {
     const consoleSpy = jest.spyOn(console, "log");
     const match = new Battle("Blessing", "Vaporeon");
     match.fight();
@@ -31,7 +31,7 @@ describe("match 1", () => {
     expect(hitPoints).toBeLessThan(70);
     expect(consoleSpy).toHaveBeenCalledWith("You caught Vaporeon");
   });
-  test.only("should should return the number of rounds or keep fighting indefinately untill no more pokemons in belt", () => {
+  test("should should return the number of rounds or keep fighting indefinately untill no more pokemons in belt", () => {
     const match = new Battle("Blessing", "Flareon");
     match.fight();
     match.fight();
@@ -51,31 +51,27 @@ describe("match 1", () => {
     match.fight();
 
     const name = match.trainer.getPokemon("Leafeon").name;
-    const hitPoints = match.trainer.getPokemon("Leafeon").hitPoints;
 
     expect(name).toBe(undefined);
   });
-  test("should should return log that the battle is over when a player wins", () => {
-    const consoleSpy = jest.spyOn(console, "log");
-    const match = new Battle("bob", "Charmander", "betty", "Squirtle");
-    match.fight("Charmander");
-    match.fight("Squirtle");
-    match.fight("Charmander");
-    match.fight("Squirtle");
-    match.fight("Charmander");
-    match.fight("Squirtle");
-    const result1 = match.fight("Charmander");
-    const result2 = match.fight("Squirtle");
-    expect(consoleSpy).toHaveBeenCalledWith("The battle is over");
-    expect(result1).toBe("GAME OVER");
-    expect(result2).toBe("GAME OVER");
-  });
-  test("should should return correct hitpoints for defending pokemon", () => {
-    const match = new Battle("bob", "Charmander", "betty", "Charmander");
-    match.fight("Charmander");
-    match.fight("Charmander");
-    match.fight("Charmander");
+  test.only("should return the rounds amount when no pokeballs in belt", () => {
+    const match = new Battle("Blessing", "Rattata");
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
+    match.fight();
 
-    expect(match.trainer2.getPokemon("Charmander").hitPoints).toBe(44 - 17 * 2);
+   console.log(match.fight())
+
+    expect(match.fight()).toBe('GAME OVER');
   });
+  
 });

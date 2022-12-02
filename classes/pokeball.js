@@ -17,8 +17,8 @@ class Pokeball {
   throw(pokemon) {
     if (pokemon === undefined) {
       if (this.quantity <= 0) {
-        console.log("empty...");
-        return "empty...";
+        console.log("Your pokeball is empty...");
+        return "Your pokeball is empty...";
       // } else if (!(this.storage.hitPoints <= 0)) {
       //   console.log(`GO ${this.storage.name}!!`);
       } else {
