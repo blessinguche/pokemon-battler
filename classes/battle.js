@@ -29,101 +29,111 @@ class Battle {
   constructor(trainer, pokemon) {
     // const npcPokemonX = new pokemons[random]();
     this.npcPokemon;
+
     this.trainer = new Trainer(trainer);
     this.trainer.catch(pokemon);
     this.pokemon = pokemon;
-    this.matchRound = 1;
+    this.trainerPokemon = this.trainer.getPokemon(this.pokemon);
+
+    this.newMatch = true;
+    this.round = 1;
+    this.matches = 0;
   }
 
-  fight(pokemon) {
-    const random = Math.floor(Math.random() * pokemons.length);
-    const npcPokemonX = new pokemons[random]();
-    this.npcPokemon = npcPokemonX;
-
-    if (this.matchRound === 1) {
-      console.log(
-        `You start your journey with just a ${
-          this.trainer.getPokemon(this.pokemon).name
-        } in your belt\nYou wander into the Forbidden Forest...\nA Wild ${
-          this.npcPokemon.name
-        } has appeared!\nFight it to capture it!`
-      );
-    } else if (this.matchRound === 2) {
+  fight(fight = true) {
+    let multiply = 1;
+    let multiply2 = 1;
+    if (!this.trainerPokemon.name) {
+      console.log(this.round);
+      return "GAME OVER";
     }
-    if (
-      this.trainer.getPokemon(this.pokemon).hitPoints <= 0 ||
-      this.trainer2.getPokemon(this.pokemon2).hitPoints <= 0
-    ) {
+    if (this.newMatch === true) {
+      const random = Math.floor(Math.random() * pokemons.length);
+      const npcPokemonX = new pokemons[random]();
+      this.npcPokemon = npcPokemonX;
+      this.newMatch = false;
+    }
+
+    console.log(this.npcPokemon.name);
+
+    if (this.newMatch === true) {
+      console.log(
+        `You start your journey with just a ${this.trainerPokemon.name} in your belt\nYou wander into the Forbidden Forest...\nA Wild ${this.npcPokemon.name} has appeared!\nFight it to capture it!`
+      );
+    }
+
+    if (this.trainerPokemon.hasFainted() || this.npcPokemon.hasFainted()) {
       console.log("The battle is over");
-      return "matchRound OVER";
+      return "matches OVER";
     }
     // this is pokemon 2 fight conditions
-    while (
-      !this.npcPokemon.hasFainted() ||
-      !this.trainer.getPokemon(this.pokemon).hasFainted()
-    ) {
-      let multiply = 1;
-      if (
-        this.trainer
-          .getPokemon(this.pokemon)
-          .isEffectiveAgainst(this.npcPokemon)
-      ) {
-        multiply = 0.75;
-      }
-      if (this.trainer.getPokemon(this.pokemon).isWeakTo(this.npcPokemon)) {
-        multiply = 1.25;
-      }
-      const hitPoints1 = this.trainer.getPokemon(this.pokemon).hitPoints;
-      const hitPoints2 = this.npcPokemon.hitPoints;
 
-      this.npcPokemon.takeDamage(
-        this.trainer.getPokemon(this.pokemon).useMove() * multiply
-      );
-      const damage1 = hitPoints1 - this.npcPokemon.hitPoints;
+    const hitPoints1 = this.trainerPokemon.hitPoints;
+    const hitPoints2 = this.npcPokemon.hitPoints;
 
-      console.log(`${this.trainer.getPokemon(this.pokemon).sound}`);
-      console.log(
-        `${this.trainer.getPokemon(this.pokemon).name} used ${
-          this.trainer.getPokemon(this.pokemon).move
-        } on ${this.npcPokemon.name} and ${
-          this.npcPokemon.name
-        } took ${damage1} damage and now has ${
-          this.npcPokemon.hitPoints
-        } hitpoints`
+    if (this.npcPokemon.isEffectiveAgainst(this.trainerPokemon)) {
+      multiply = 0.75;
+    }
+    if (this.npcPokemon.isWeakTo(this.trainerPokemon)) {
+      multiply = 1.25;
+    }
+    if (!this.trainerPokemon.hasFainted()) {
+      const damage1 = this.npcPokemon.takeDamage(
+        this.trainerPokemon.useMove() * multiply
       );
 
-      this.trainer
-        .getPokemon(this.pokemon)
-        .takeDamage(this.npcPokemon.useMove() * multiply);
-
-      const damage2 =
-        hitPoints2 - this.trainer.getPokemon(this.pokemon).hitPoints;
-      console.log(`${this.npcPokemon.sound}`);
       console.log(
-        `${this.npcPokemon.name} used ${this.npcPokemon.move} on ${
-          this.trainer.getPokemon(this.pokemon).name
-        } and ${
-          this.trainer.getPokemon(this.pokemon).name
-        } took ${damage2} damage and now has ${
-          this.trainer.getPokemon(this.pokemon).hitPoints
-        } hitpoints`
+        `${this.trainerPokemon.sound}\n${this.trainerPokemon.name} used ${this.trainerPokemon.move} on ${this.npcPokemon.name}\n${this.npcPokemon.name} took ${damage1} damage\n${this.npcPokemon.name} hitpoints = ${this.npcPokemon.hitPoints}`
       );
     }
+    if (this.trainerPokemon.isEffectiveAgainst(this.npcPokemon)) {
+      multiply2 = 0.75;
+    }
+    if (this.trainerPokemon.isWeakTo(this.npcPokemon)) {
+      multiply2 = 1.25;
+    }
+
+    if (!this.npcPokemon.hasFainted()) {
+      const damage2 = this.trainerPokemon.takeDamage(
+        this.npcPokemon.useMove() * multiply2
+      );
+      console.log(
+        `${this.npcPokemon.sound}\n${this.npcPokemon.name} used ${this.npcPokemon.move} on ${this.trainerPokemon.name}\n${this.trainerPokemon.name} took ${damage2} damage\n${this.trainerPokemon.name} hitpoints = ${this.trainerPokemon.hitPoints}`
+      );
+    }
+
+    this.round += 1;
+
+    console.log(
+      `Trainers' original health = ${hitPoints1}\nComputers' original health = ${hitPoints2}`
+    );
 
     if (this.npcPokemon.hasFainted()) {
-      this.matchRound += 1;
+      this.newMatch = true;
+      this.matches += 1;
+      
+      this.pokemon = this.npcPokemon.name;
       console.log(
-        `${this.trainer.name} you has won!\nYou now capture the pokemon `
+        `${this.trainer.name}, you have won the battle!\nYou now capture the pokemon...`
       );
-      this.trainer.throw(this.npcPokemon.name);
-    } else if (this.trainer.getPokemon(this.pokemon).hasFainted()) {
-      this.matchRound += 1;
-      console.log(`${this.trainer.name} has lost!`);
-    }
 
-    if (this.trainer.getPokemon(this.pokemon).name !== pokemon) {
-      console.log("Pokemon not found");
+      this.trainer.catch(this.npcPokemon.name);
+    } else if (this.trainerPokemon.hasFainted()) {
+      this.newMatch = true;
+
+      console.log(`${this.trainer.name} has lost ${this.trainerPokemon.name}!`);
+
+      this.trainer.belt.shift();
+      this.trainer.belt.push(new Pokeball());
+
+      this.trainerPokemon = this.trainer.getPokemon(
+        this.trainer.belt[0].storage.name
+      );
     }
+    if (this.trainerPokemon.name !== this.pokemon) {
+      console.log(`Pokemon not found`);
+    }
+    console.log(this.trainer.belt);
   }
 }
 

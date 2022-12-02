@@ -28,6 +28,9 @@ class Trainer {
       if (this.belt[i].quantity === 0) {
         this.belt[i].throw(pokemon);
         return "Success!";
+      // } else if (this.belt[i].hitPoints <= 0) {
+      //   this.belt.pop();
+      //   this.belt.push(new Pokeball());
       }
     }
     console.log("You're out of Pokeballs!");
@@ -36,10 +39,10 @@ class Trainer {
   getPokemon(pokemonName) {
     for (let i = 0; i < this.belt.length; i++) {
       if (this.belt[i].storage.name === pokemonName) {
-        if (this.belt[i].storage.hitPoints <= 0) {
-          this.belt.pop();
-          this.belt.push(new Pokeball());
-        }
+        // if (this.belt[i].storage.hitPoints <= 0) {
+        //   this.belt.pop();
+        //   this.belt.push(new Pokeball());
+        // }
         return this.belt[i].throw();
       }
     }

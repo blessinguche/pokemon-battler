@@ -19,8 +19,9 @@ class Pokeball {
       if (this.quantity <= 0) {
         console.log("empty...");
         return "empty...";
+      // } else if (!(this.storage.hitPoints <= 0)) {
+      //   console.log(`GO ${this.storage.name}!!`);
       } else {
-        console.log(`GO ${this.storage.name}!!`);
         return this.storage; // { 1: 'Charmanda' }
       }
     }

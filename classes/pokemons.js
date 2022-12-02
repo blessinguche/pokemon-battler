@@ -42,7 +42,7 @@ class Charmander extends Fire {
 }
 class Squirtle extends Water {
   constructor() {
-    super("Squirtle", 44, 16, "	Surf");
+    super("Squirtle", 44, 16, "Surf");
   }
 }
 class Bulbasaur extends Grass {

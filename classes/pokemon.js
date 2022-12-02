@@ -31,11 +31,12 @@ class Pokemon {
     }
     return false;
   }
-  takeDamage(damageNumber = 0) {
+  takeDamage(damageNumber) {
     this.hitPoints = this.hitPoints - damageNumber;
+    return damageNumber
   }
   useMove() {
-    console.log(`${this.name} used ${this.move}!`);
+    // console.log(`${this.name} used ${this.move}!`);
     return this.attackDamage;
   }
   hasFainted() {
