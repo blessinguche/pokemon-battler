@@ -37,31 +37,45 @@ const battleQuestion = [
   },
 ];
 const fightChoice = [
-    {
-      type: "list",
-      name: "name",
-      message: "Do you want to fight?",
-      choices: ['yes', 'no']
-    }
-]
-let battleInstance = {};
-
+  {
+    type: "list",
+    name: "answer",
+    message: "Do you want to fight?",
+    choices: ["yes", "no"],
+  },
+];
+let battleInstance;
 function playGame() {
   inquirer
     .prompt(battleQuestion)
     .then(function (battleAnswers) {
+      battleInstance = new Battle(battleAnswers.name, battleAnswers.pokemon);
+      battleInstance.fight(false, true);
 
-      battleInstance = new Battle(
-        battleAnswers.name,
-        battleAnswers.pokemon
-      );
-      
-      return 
+      return inquirer.prompt(fightChoice);
     })
-    .then(function (turnPokemon) {
-
-    });
+    .then(function (fightAns) {
+      if (fightAns.answer === 'no') {
+        console.log(battleInstance.fight(false));
+      } else if (fightAns.answer === 'yes'){
+        while (battleInstance.newMatch === false) {
+          battleInstance.fight(true, false);
+        }
+        battleInstance.fight(false, true);
+        return inquirer.prompt(fightChoice);
+      }
+    })
+    .then(function (fightAns) {
+        if (fightAns.answer === 'no') {
+            console.log(battleInstance.fight(false));
+          } else if (fightAns.answer === 'yes'){
+            while (battleInstance.newMatch === false) {
+              battleInstance.fight(true, false);
+            }
+            battleInstance.fight(false, true);
+            return inquirer.prompt(fightChoice);
+        }
+    })
 }
 
-
-playGame()
+playGame();

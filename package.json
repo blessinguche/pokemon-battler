@@ -4,6 +4,7 @@
   "description": "You will be implementing a Pokemon battle game using the Object Oriented Programming skills you've learned this week!",
   "main": "index.js",
   "scripts": {
+    "game": "node game/game.js",
     "test": "jest"
   },
   "repository": {
